@@ -1,17 +1,17 @@
 // Parent class
 class Employee {
-    constructor(name, id, email) {
-        this.name = name;
+    constructor(empName, id, email) {
+        this.empName = empName;
         this.id = id;
         this.email = email;
     }
 
     getName() {
-        return this.name;
+        return this.empName;
     }
 
     getId() {
-        return this.name;
+        return this.id;
     }
 
     getEmail(){
@@ -22,6 +22,5 @@ class Employee {
         return 'Employee'
     }
 }
-// const emp = new Employee("Johnson", 1211, "email");
 
-// console.log(emp.getName())
+module.exports = Employee;
