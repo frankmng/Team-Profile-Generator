@@ -1,15 +1,18 @@
-const Employee = require('./lib/Employee');
+const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
+
+
+
 const inquirer = require('inquirer');
 //npm i inquirer-loop
 inquirer.registerPrompt("loop", require("inquirer-loop")(inquirer));
 	
-inquirer
-	.prompt([
+const questions= [
 		{
 			type: 'input',
 			name: 'manager_name',
 			message: 'Enter team manager name: ',
-			
 		},
 		{
 			type: 'input',
@@ -49,8 +52,8 @@ inquirer
 					type: 'input',
 					name: 'employee_name',
 					message: 'What is the employee name?',
-			},
-			{
+				},
+				{
 					type: 'input',
 					message: 'What is the employee ID?',
 					name: 'employee_id',
@@ -58,6 +61,11 @@ inquirer
 						if(isNaN(value)) { return 'Enter a valid ID number' }
 						else { return true; }
 					}
+				},
+				{
+					type: 'input',
+					message: 'What is the employee email address?',
+					name: 'employee_email'
 				},
 				{
 					type: 'input',
@@ -73,6 +81,35 @@ inquirer
 				},
 			]
 		},
-]);
+]
 
+const buildTeam = () => {
+	inquirer.prompt(questions)
+		.then((data) => {
+			const employees = data.new_employee;
+			const engineer = [];
+			const intern = []
+			const manager = new Manager(data.manager_name, data.employee_id, data.manager_email, data.office_number)
+
+			for (const e of employees) {
+				if (e.employee_type === 'Engineer'){
+					const new_engineer = new Engineer(e.employee_name, e.employee_id, e.employee_email, e.github)
+					engineer.push(new_engineer)
+				}
+				else if (e.employee_type === 'Intern'){
+					const new_intern = new Intern(e.employee_name, e.employee_id, e.employee_email, e.school)
+					intern.push(new_intern)
+				}
+
+			}
+
+			console.log(manager)
+			console.log(engineer)
+			console.log(intern)
+
+
+	})
+}
+
+buildTeam();
 
