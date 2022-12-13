@@ -1,14 +1,15 @@
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
-
+const buildHTML = require('./dist/team');
+const fs = require("fs")
 
 
 const inquirer = require('inquirer');
 //npm i inquirer-loop
 inquirer.registerPrompt("loop", require("inquirer-loop")(inquirer));
 	
-const questions= [
+const questions = [
 		{
 			type: 'input',
 			name: 'manager_name',
@@ -103,13 +104,14 @@ const buildTeam = () => {
 
 			}
 
-			console.log(manager)
-			console.log(engineer)
-			console.log(intern)
+			const team = buildManager(manager)
 
-
+			fs.writeFile('index.html', team, (err) =>
+			err ? console.error(err) : console.log('Success!')
+	);
 	})
 }
-
 buildTeam();
+
+
 
