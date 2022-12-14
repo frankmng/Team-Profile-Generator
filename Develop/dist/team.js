@@ -54,8 +54,6 @@ buildIntern = (intern) => {
 }
 
 const buildHTML = (manager, engineer, intern) => {
-// const buildHTML = (buildManager, buildEngineer, buildIntern) => {
-
   let managerHTML =  buildManager(manager);  
   let engineerHTML =  buildEngineer(engineer);  
   let internHTML =  buildIntern(intern);  
