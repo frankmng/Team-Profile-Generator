@@ -19,8 +19,8 @@ const questions = [
 			type: 'input',
 			name: 'employee_id',
 			message: 'Enter manager employee ID: ',
-			validate(value) {
-				if(isNaN(value)) { return 'Enter a valid ID number' }
+			validate(employee_id) {
+				if(isNaN(employee_id)) { return 'Enter a valid ID number' }
 				else { return true; }
 			}
 		},
@@ -28,13 +28,17 @@ const questions = [
 			type: 'input',
 			name: 'manager_email',
 			message: 'Enter manager email: ',
+			validate(manager_email) {
+				if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(manager_email)) { return true }
+				else { return 'Enter a valid email address'; }
+			}
 		},
 		{
 			type: 'input',
 			name: 'office_number',
 			message: 'Enter manager office number: ',
-			validate(value) {
-				if(isNaN(value)) { return 'Enter a valid office number' }
+			validate(office_number) {
+				if(isNaN(office_number)) { return 'Enter a valid office number' }
 				else { return true; }
 			}
 		},
@@ -66,9 +70,13 @@ const questions = [
 				{
 					type: 'input',
 					message: 'What is the employee email address?',
-					name: 'employee_email'
-				},
-				{
+					name: 'employee_email',
+					validate(employee_email) {
+						if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(employee_email)) { return true }
+						else { return 'Enter a valid ID number'; }
+					}
+					},
+					{
 					type: 'input',
 					name: 'github',
 					message: 'What is their Github username?',
@@ -105,8 +113,8 @@ const buildTeam = () => {
 			
 			const team = buildHTML(manager, engineer, intern)
 
-			fs.writeFile('index.html', team, (err) =>
-			err ? console.error(err) : console.log('Success!')
+			fs.writeFile('./dist/index.html', team, (err) =>
+			err ? console.error(err) : console.log('Successful')
 	);
 	})
 }
