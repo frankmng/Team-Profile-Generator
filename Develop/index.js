@@ -89,8 +89,8 @@ const buildTeam = () => {
 		.then((data) => {
 			const employees = data.new_employee;
 			const engineer = [];
-			const intern = []
-			const manager = new Manager(data.manager_name, data.employee_id, data.manager_email, data.office_number)
+			const intern = [];
+			const manager = new Manager(data.manager_name, data.employee_id, data.manager_email, data.office_number);
 
 			for (const e of employees) {
 				if (e.employee_type === 'Engineer'){
@@ -101,16 +101,16 @@ const buildTeam = () => {
 					const new_intern = new Intern(e.employee_name, e.employee_id, e.employee_email, e.school)
 					intern.push(new_intern)
 				}
-
 			}
-
-			const team = buildManager(manager)
+			
+			const team = buildHTML(manager, engineer, intern)
 
 			fs.writeFile('index.html', team, (err) =>
 			err ? console.error(err) : console.log('Success!')
 	);
 	})
 }
+
 buildTeam();
 
 

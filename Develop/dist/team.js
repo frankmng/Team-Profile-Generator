@@ -1,33 +1,64 @@
 buildManager = (manager) => {
+  const {empName, id, email, officeNumber} = manager
   const managerTemplate = 
     `<div class="col-md-12 mb-4">
-      <div class="h-100 w-50 p-5 text-bg-dark rounded-3 m-auto">
-        <h2>${manager.manager_name}</h2>
-        <p>${manager.employee_id}</p>
-        <p>${manager.manager_email}</p>
-        <p>${manager.office_number}</p>
-        <button class="btn btn-outline-light" type="button">Example button</button>
+      <div class="h-100 w-50 p-5 text-bg-light border border-dark rounded-3 m-auto">
+        <h2>${empName}</h2>
+        <p class="text-secondary fs-5">Manager</h3>
+        <p><b>Employee ID</b>: ${id}</p>
+        <p><b>Email</b>: ${email}</p>
+        <p><b>Office</b>: ${officeNumber}</p>
       </div>
     </div>`
     return managerTemplate;
 }
 
-buildEngineer = () => {
-
+buildEngineer = (engineer) => {
+  let engineerTemplate = '';
+  for(const i in engineer) {
+      let e = engineer[i]
+      let htmlTemplate = 
+        `<div class="col-md-6 mb-4">
+          <div class="h-100 p-5 text-bg-light border border-dark rounded-3">
+              <h2>${e.empName}</h2>
+              <p class="text-secondary fs-5">Engineer</h3>
+              <p><b>Employee ID</b>: ${e.id}</p>
+              <p><b>Email</b>: ${e.email}</p>
+              <p><b>Github</b>: ${e.github}</p>
+          </div>
+        </div>`
+        engineerTemplate += htmlTemplate
+  }
+    return engineerTemplate;
+ 
 }
 
-// buildIntern = () => {
+buildIntern = (intern) => {
+  let internTemplate = '';
+  for(const e in intern) {
+      let i = intern[e]
+      let htmlTemplate = 
+        `<div class="col-md-6 mb-4">
+          <div class="h-100 p-5 text-bg-light border border-dark rounded-3">
+              <h2>${i.empName}</h2>
+              <p class="text-secondary fs-5">Intern</h3>
+              <p><b>Employee ID</b>: ${i.id}</p>
+              <p><b>Email</b>: ${i.email}</p>
+              <p><b>School</b>: ${i.school}</p>
+          </div>
+        </div>`
+        internTemplate += htmlTemplate
+  }
+    return internTemplate;
+ 
+}
 
-// }
-
-const buildHTML = (manager) => {
+const buildHTML = (manager, engineer, intern) => {
 // const buildHTML = (buildManager, buildEngineer, buildIntern) => {
 
-  let func = async () =>{
-    let res = await buildManager(manager);
-    return res
-  }
-  func().then((res)=> {
+  let managerHTML =  buildManager(manager);  
+  let engineerHTML =  buildEngineer(engineer);  
+  let internHTML =  buildIntern(intern);  
 
   const teamHTML =
     `<!doctype html>
@@ -46,41 +77,18 @@ const buildHTML = (manager) => {
       <main>
         <div class="container py-4">
           <header class="pb-3 mb-4 border-bottom">
-              <span class="fs-4">My Team</span>
+            <span class="fs-2 mt-4">My Team</span>
           </header>
           <div class="row align-items-md-stretch">
-            ${res}
-            </div>
-            <div class="col-md-6">
-              <div class="h-100 p-5 text-bg-dark  border rounded-3">
-                <h2>Add borders</h2>
-                <p>Or, keep it light and add a border for some added definition to the boundaries of your content. Be sure to look under the hood at the source HTML here as we've adjusted the alignment and sizing of both column's content for equal-height.</p>
-                <button class="btn btn-outline-secondary" type="button">Example button</button>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="h-100 p-5 text-bg-dark border rounded-3">
-                <h2>Add borders</h2>
-                <p>Or, keep it light and add a border for some added definition to the boundaries of your content. Be sure to look under the hood at the source HTML here as we've adjusted the alignment and sizing of both column's content for equal-height.</p>
-                <button class="btn btn-outline-secondary" type="button">Example button</button>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="h-100 p-5 text-bg-dark  border rounded-3">
-                <h2>Add borders</h2>
-                <p>Or, keep it light and add a border for some added definition to the boundaries of your content. Be sure to look under the hood at the source HTML here as we've adjusted the alignment and sizing of both column's content for equal-height.</p>
-                <button class="btn btn-outline-secondary" type="button">Example button</button>
-              </div>
-            </div>
+            ${managerHTML}
+            ${engineerHTML}
+            ${internHTML}
           </div>
         </div>
       </main>  
       </body>
     </html>`
-
-  return teamHTML;
-
-  });
+    return teamHTML;
 }
 
-module.exports = buildManager;
+module.exports = buildHTML;
